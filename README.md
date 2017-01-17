@@ -1,0 +1,2 @@
+# administration
+GUI for apisearch

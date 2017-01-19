@@ -1,4 +1,67 @@
 {block content}
 
-<h2>Apisearch GUI</h2>
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="#" onclick="$('.toggle').toggle()">Nastavení</a></li>
+                <li role="presentation"><a href="{link Sign:out}">Odhlásit</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Apisearch</h3>
+    </div>
 
+    <div class="row toggle" style="display: none">
+        <div class="col-sm-10 col-sm-offset-1">
+            <h2 class="text-center">Nastavení účtu</h2><br>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <input type="email" class="form-control input-lg" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <input type="password" class="form-control input-lg" placeholder="Nové heslo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <input type="password" class="form-control input-lg" placeholder="Nové heslo znovu">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <input type="email" class="form-control input-lg" placeholder="URL XML feedu">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <button type="submit" class="btn btn-lg btn-success">Uložit</button>
+                        <button class="btn btn-lg btn-default pull-right" onclick="$('.toggle').toggle()">
+                            Zrušit
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <br><br>
+        </div>
+    </div>
+
+    <div class="row toggle">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="form-group">
+                <input class="form-control input-lg" placeholder="Vyhledat...">
+            </div>
+            <p class="text-center text-muted">
+                Nalezeno 5 produktů za 23 ms z celkem 30 212 produktů.
+            </p>
+            <br>
+        </div>
+    </div>
+
+    <footer class="footer text-center">
+        <p>&copy; 2017 Apisearch</p>
+    </footer>
+
+</div>

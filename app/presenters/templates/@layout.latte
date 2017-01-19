@@ -15,10 +15,17 @@
     </head>
 
     <body>
-        <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-
-        {include content}
-
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+                </div>
+            </div>
+            {include content}
+            <footer class="footer text-center">
+                <p>&copy; 2017 Apisearch</p>
+            </footer>
+        </div>
         {block scripts}
             <script src="{$basePath}/js/jquery.min.js"></script>
             <script src="{$basePath}/js/bootstrap.min.js"></script>

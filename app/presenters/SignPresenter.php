@@ -2,10 +2,8 @@
 
 namespace App\Presenters;
 
-use Nette;
 
-
-class SignPresenter extends Nette\Application\UI\Presenter
+class SignPresenter extends BasePresenter
 {
     public function actionOut()
     {

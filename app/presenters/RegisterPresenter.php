@@ -2,9 +2,7 @@
 
 namespace App\Presenters;
 
-use Nette;
 
-
-class RegisterPresenter extends Nette\Application\UI\Presenter
+class RegisterPresenter extends BasePresenter
 {
 }

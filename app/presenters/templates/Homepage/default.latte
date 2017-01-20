@@ -2,8 +2,14 @@
 <div class="header clearfix">
     <nav>
         <ul class="nav nav-pills pull-right">
-            <!--<li role="presentation"><a href="#" onclick="$('.toggle').toggle()">Nastavení</a></li>-->
-            <li role="presentation"><a href="{link Sign:out}">Odhlásit</a></li>
+            <li role="presentation"><a href="#" onclick="toggleTabs('search');">Vyhledávání</a></li>
+            <li role="presentation"><a href="#" onclick="toggleTabs('docs');">Návod k napojení</a></li>
+            <li role="presentation"><a href="#" onclick="toggleTabs('settings');">Nastavení</a></li>
+            <li role="presentation">
+                <a href="{link Sign:out}" onclick="return confirm('Opravdu se chcete odhlásit?');">
+                    Odhlásit
+                </a>
+            </li>
         </ul>
     </nav>
     <h3 class="text-muted">Apisearch</h3>
@@ -11,13 +17,44 @@
 {/block}
 
 {block content}
-<div class="row toggle" style="display: none">
+<div id="docs" class="row" style="display: none">
+    <div class="col-sm-12">
+        <p>Požadavek je nutné odeslat jako HTTP požadavek metodou GET na adresu:</p>
+        <pre>{$searchEndpoint}</pre>
+        <br>
+        <p>Odpověď bude mít formát JSON:</p>
+<pre>{
+  "products": [
+    {
+      "id": "70191",
+      "userId": "9m7MAKlab0rzBMxiwAVE",
+      "name": "Masivní dětská postel",
+      "description": "Dětská postel z masivu - velmi masivní a stabilní postel...",
+      "url": "http://www.muj-eshop.cz/postel-detska-drevena.html",
+      "img": "http://www.muj-eshop.cz/foto/postel-70191.jpg",
+      "price": 2600,
+      "updated": "2017-01-20T13:54:42+01:00"
+    }
+  ]
+}</pre>
+        <br>
+        <p>
+            Kompletní dokumentace API je dostupná na adrese
+            <a href="http://docs.apisearch.apiary.io/#reference/0/search/fulltext-search" target="_blank">docs.apisearch.apiary.io</a>.
+        </p>
+        <button class="btn btn-lg btn-default pull-right" onclick="toggleTabs('search');" style="margin-bottom: 30px">
+            Zpět
+        </button>
+    </div>
+</div>
+
+<div id="settings" class="row" style="display: none">
     <div class="col-sm-10 col-sm-offset-1">
         <h2 class="text-center">Nastavení účtu</h2><br>
         <form class="form-horizontal">
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">
-                    <input type="email" class="form-control input-lg" placeholder="Email">
+                    <input type="email" class="form-control input-lg" placeholder="Email" value="{$settings['email']}">
                 </div>
             </div>
             <div class="form-group">
@@ -32,15 +69,15 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">
-                    <input type="email" class="form-control input-lg" placeholder="URL XML feedu">
+                    <input type="email" class="form-control input-lg" placeholder="URL XML feedu" value="{$settings['feedUrl']}">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">
                     <button type="submit" class="btn btn-lg btn-success">Uložit</button>
-                    <button class="btn btn-lg btn-default pull-right" onclick="$('.toggle').toggle()">
-                        Zrušit
-                    </button>
+                    <a href="#" class="btn btn-lg btn-default pull-right" onclick="toggleTabs('search');">
+                        Zpět
+                    </a>
                 </div>
             </div>
         </form>
@@ -48,7 +85,7 @@
     </div>
 </div>
 
-<div class="toggle">
+<div id="search">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
             <div class="form-group">
@@ -57,7 +94,12 @@
         </div>
     </div>
     <div class="row">
-        <div id="products"></div>
+        <div id="products">
+            <br>
+            <br>
+            <p class="lead text-center">Vyzkoušejte si vyhledávání.</p>
+            <br>
+        </div>
     </div>
     <br>
 </div>
@@ -66,6 +108,22 @@
 {block scripts}
     {include parent}
     <script type="text/javascript">
+        function toggleTabs(tab) {
+            if (tab == 'search') {
+                $('#docs').hide();
+                $('#settings').hide();
+                $('#search').show();
+            } else if (tab == 'settings') {
+                $('#docs').hide();
+                $('#search').hide();
+                $('#settings').show();
+            } else if (tab == 'docs') {
+                $('#settings').hide();
+                $('#search').hide();
+                $('#docs').show();
+            }
+        }
+
         $(document).ready(function () {
             setTimeout(function(){
                 $('.alert-success').fadeOut(1000);

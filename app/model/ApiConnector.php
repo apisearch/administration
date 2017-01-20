@@ -115,4 +115,9 @@ class ApiConnector extends Object
 
         return $responseBody;
     }
+
+    public function getSearchEndpoint(string $userId, string $query): string
+    {
+        return $this->endpoint . '/api/v1/search/' . $userId . '/' . urlencode($query);
+    }
 }

@@ -17,13 +17,20 @@ class HomepagePresenter extends BasePresenter
         }
 
         try {
-            $this->userId = $this->api->getUser($this->token)['id'] ?? null;
+            $user = $this->api->getUser($this->token);
+            $this->userId = $user['id'] ?? null;
+            $this->template->settings = $user;
         } catch (\Exception $e) {
             $this->flashMessage('Nepodařilo se našíst nastavení: ' . $e->getMessage(), 'danger');
             $this->redirect('Sign:');
         }
 
         parent::startup();
+    }
+
+    public function renderDefault()
+    {
+        $this->template->searchEndpoint = $this->api->getSearchEndpoint($this->userId, 'hledany vyraz');
     }
 
     public function renderSearch($query = '')

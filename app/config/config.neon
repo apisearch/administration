@@ -1,5 +1,5 @@
 parameters:
-    api: "http://localhost:8081"
+    api: "http://localhost:8080"
 
 
 application:
@@ -14,10 +14,5 @@ session:
 
 services:
 	- GuzzleHttp\Client
-
-	BasePresenter:
-		class: App\Presenters\BasePresenter
-		setup:
-			- setApiEndpoint(%api%)
-
+	- App\Model\ApiConnector(%api%)
 	router: App\RouterFactory::createRouter

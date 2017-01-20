@@ -9,6 +9,11 @@ class SignPresenter extends BasePresenter
 {
     public function actionOut()
     {
+        try {
+            $this->api->signOut($this->token);
+        } catch (\Exception $e) {
+        }
+
         $this->redirect('Sign:');
     }
 
@@ -33,7 +38,7 @@ class SignPresenter extends BasePresenter
 
         try {
             $token = $this->api->signIn($values['login'], $values['password']);
-            $this->flashMessage('Byli jste úspěšně přihlášeni do aplikace Apisearch', 'success');
+            $this->flashMessage('Byli jste úspěšně přihlášeni', 'success');
         } catch (\Exception $e) {
             $this->flashMessage('Nepodařilo se přihlásit: ' . $e->getMessage(), 'danger');
             $this->redirect('this');

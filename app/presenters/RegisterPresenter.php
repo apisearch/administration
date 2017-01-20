@@ -36,7 +36,7 @@ class RegisterPresenter extends BasePresenter
 
         try {
             $token = $this->api->register($values['login'], $values['password'], $values['xml']);
-            $this->flashMessage('Byli jste úspěšně registrováni do aplikace Apisearch', 'success');
+            $this->flashMessage('Byli jste úspěšně registrováni', 'success');
         } catch (\Exception $e) {
             $this->flashMessage('Registrace se nezdařila: ' . $e->getMessage(), 'danger');
             $this->redirect('this');

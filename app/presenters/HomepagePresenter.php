@@ -5,9 +5,6 @@ namespace App\Presenters;
 
 class HomepagePresenter extends BasePresenter
 {
-    /** @var string @persistent */
-    public $token;
-
     public function startup()
     {
         if (!$this->token) {

@@ -1,5 +1,4 @@
-{block content}
-
+{block header}
 <div class="header clearfix">
     <nav>
         <ul class="nav nav-pills pull-right">
@@ -9,7 +8,9 @@
     </nav>
     <h3 class="text-muted">Apisearch</h3>
 </div>
+{/block}
 
+{block content}
 <div class="row toggle" style="display: none">
     <div class="col-sm-10 col-sm-offset-1">
         <h2 class="text-center">Nastavení účtu</h2><br>
@@ -66,6 +67,10 @@
     {include parent}
     <script type="text/javascript">
         $(document).ready(function () {
+            setTimeout(function(){
+                $('.alert-success').fadeOut(1000);
+            }, 5000);
+
             $('#query').on('keyup', function() {
                 $.ajax({
                     type: "GET",

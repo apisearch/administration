@@ -1,6 +1,12 @@
 <div class="row">
     <p class="text-center text-muted" style="margin-bottom: 15px">
-        Nalezeno {=count($products)|number:0:',':' '} produktů za {$time|number:2:',':' '} ms.
+        Nalezeno
+        {if count($products) >= 50}
+            více než 50
+        {else}
+            {=count($products)|number:0:',':' '}
+        {/if}
+        produktů za {$time|number:2:',':' '} ms.
     </p>
 </div>
 {foreach $products as $product}

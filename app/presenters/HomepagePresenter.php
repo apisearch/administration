@@ -26,10 +26,6 @@ class HomepagePresenter extends BasePresenter
         parent::startup();
     }
 
-    public function renderDefault()
-    {
-    }
-
     public function renderSearch($query = '')
     {
         $this->template->products = [];

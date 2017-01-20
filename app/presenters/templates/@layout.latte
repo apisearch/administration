@@ -16,9 +16,13 @@
 
     <body>
         <div class="container">
+            {block header}{/block}
             <div class="row">
                 <div class="col-sm-12">
-                    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
+                    <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">
+                        {$flash->message}
+                        <a class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+                    </div>
                 </div>
             </div>
             {include content}

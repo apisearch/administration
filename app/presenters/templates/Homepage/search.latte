@@ -1,0 +1,20 @@
+<div class="row">
+    <p class="text-center text-muted">
+        Nalezeno {=count($products)|number:0:',':' '} produktů za {$time|number:2:',':' '} ms.
+    </p>
+</div>
+{foreach $products as $product}
+    {first 3}<div class="row">{/first}
+        <div class="col-sm-4 text-center">
+            <img src="{$product['img']}" style="max-width: 100%; max-height: 200px; margin-bottom: -15px">
+            <br>
+            <a href="{$product['url']}">
+                {$product['name']|firstUpper}
+            </a>
+            <br>
+            <p class="text-muted" style="margin: 5px">
+                Cena: {$product['price']|number:2:',':' '} Kč
+            </p>
+        </div>
+    {last 3}</div>{/last}
+{/foreach}

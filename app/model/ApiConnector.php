@@ -73,6 +73,32 @@ class ApiConnector extends Object
         return $this->decodeResponse($response)['token'];
     }
 
+    public function getUser(string $token)
+    {
+        $response = null;
+
+        try {
+            $response = $this->client->get($this->endpoint . '/api/v1/user/' . $token);
+        } catch (BadResponseException $e) {
+            $this->processBadResponse($e);
+        }
+
+        return $this->decodeResponse($response);
+    }
+
+    public function search(string $userId, string $query): array
+    {
+        $response = null;
+
+        try {
+            $response = $this->client->get($this->endpoint . '/api/v1/search/' . $userId . '/' . trim($query));
+        } catch (BadResponseException $e) {
+            $this->processBadResponse($e);
+        }
+
+        return $this->decodeResponse($response);
+    }
+
     private function processBadResponse(BadResponseException $e)
     {
         $responseBody = \GuzzleHttp\json_decode($e->getResponse()->getBody(), true);

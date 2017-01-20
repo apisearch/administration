@@ -3,7 +3,7 @@
 <div class="header clearfix">
     <nav>
         <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="#" onclick="$('.toggle').toggle()">Nastavení</a></li>
+            <!--<li role="presentation"><a href="#" onclick="$('.toggle').toggle()">Nastavení</a></li>-->
             <li role="presentation"><a href="{link Sign:out}">Odhlásit</a></li>
         </ul>
     </nav>
@@ -47,14 +47,35 @@
     </div>
 </div>
 
-<div class="row toggle">
-    <div class="col-sm-8 col-sm-offset-2">
-        <div class="form-group">
-            <input class="form-control input-lg" placeholder="Vyhledat...">
+<div class="toggle">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="form-group">
+                <input id="query" class="form-control input-lg" placeholder="Vyhledat..." autocomplete="off">
+            </div>
         </div>
-        <p class="text-center text-muted">
-            Nalezeno 5 produktů za 23 ms z celkem 30 212 produktů.
-        </p>
-        <br>
     </div>
+    <div class="row">
+        <div id="products"></div>
+    </div>
+    <br>
 </div>
+{/block}
+
+{block scripts}
+    {include parent}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#query').on('keyup', function() {
+                $.ajax({
+                    type: "GET",
+                    url: {link Homepage:search},
+                    data: "query=" + $('#query').val(),
+                    success: function(data) {
+                        $('#products').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+{/block}

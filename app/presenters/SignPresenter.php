@@ -14,6 +14,7 @@ class SignPresenter extends BasePresenter
         } catch (\Exception $e) {
         }
 
+        $this->token = null;
         $this->redirect('Sign:');
     }
 

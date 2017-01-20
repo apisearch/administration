@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
-
 use Nette\Application\UI\Form;
+
 
 class SignPresenter extends BasePresenter
 {
@@ -19,7 +19,6 @@ class SignPresenter extends BasePresenter
             ->addRule(Form::EMAIL, 'Zadejte platnou e-mailovou adresu')
             ->addRule(Form::REQUIRED, 'Zadání e-mailu je povinné');
         $form->addPassword('password')
-            ->addRule(Form::LENGTH, 'Heslo musí být dlouhé alespoň 5 znaků', [5, PHP_INT_MAX])
             ->addRule(Form::REQUIRED, 'Zadání hesla je povinné');
         $form->addSubmit('submit');
         $form->onSuccess[] = [$this, 'signIn'];
@@ -34,8 +33,9 @@ class SignPresenter extends BasePresenter
 
         try {
             $token = $this->api->signIn($values['login'], $values['password']);
+            $this->flashMessage('Byli jste úspěšně přihlášeni do aplikace Apisearch', 'success');
         } catch (\Exception $e) {
-            $this->flashMessage($e->getMessage(), 'danger');
+            $this->flashMessage('Nepodařilo se přihlásit: ' . $e->getMessage(), 'danger');
             $this->redirect('this');
         }
 

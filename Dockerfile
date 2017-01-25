@@ -6,5 +6,5 @@ RUN composer install --no-dev --no-scripts --optimize-autoloader && \
     mv www web && \
     mv app/config/config.docker.neon app/config/config.local.neon && \
     chown -R www-data:www-data /var/www/* && \
-    chmod -R 777 temp log && \
+    chmod -R 777 temp log
 USER www-data

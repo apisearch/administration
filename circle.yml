@@ -13,3 +13,10 @@ dependencies:
 test:
   override:
     - echo no tests
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e ludek.vesely@email.com -u ludekvesely -p $DOCKER_PASS
+      - docker push apisearch/web-admin

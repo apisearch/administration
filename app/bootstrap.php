@@ -15,6 +15,10 @@ if (file_exists(__DIR__ . '/config/config.local.neon')) {
     $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 }
 
+if (getenv('DOCKER')) {
+    $_SERVER['SERVER_PORT'] = 80;
+}
+
 $container = $configurator->createContainer();
 
 return $container;

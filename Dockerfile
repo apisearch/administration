@@ -1,4 +1,5 @@
 FROM atoto/docker-nginx-php-stack
+ENV DOCKER=true
 ADD . /var/www/html
 RUN composer install --no-dev --no-scripts --optimize-autoloader && \
     rm -rf temp/* log/* && \

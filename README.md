@@ -10,7 +10,6 @@ git clone git@github.com:apisearch/web-admin.git
 cd web-admin
 composer install
 chmod -R 777 temp log
-php -S localhost:8000 -t www
+php -S localhost:8000 -t web web/app.php
 open http://localhost:8000
 ```
-

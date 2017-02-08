@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
-
 use Tracy\Debugger;
+
 
 class HomepagePresenter extends BasePresenter
 {
@@ -21,7 +21,8 @@ class HomepagePresenter extends BasePresenter
             $this->userId = $user['id'] ?? null;
             $this->template->settings = $user;
         } catch (\Exception $e) {
-            $this->flashMessage('Nepodařilo se našíst nastavení: ' . $e->getMessage(), 'danger');
+            $this->flashMessage('Nepodařilo se našíst nastavení uživatele: ' . $e->getMessage(), 'danger');
+            $this->token = '';
             $this->redirect('Sign:');
         }
 

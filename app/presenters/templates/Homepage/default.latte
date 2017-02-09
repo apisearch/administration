@@ -107,14 +107,16 @@
             <p class="lead text-center" style="font-size: 180%">Zde si můžete vyzkoušet vyhledávání.</p>
             <br>
             <br>
-            <p class="lead text-center text-muted" style="line-height: 230%">
-                Zkuste zadat například:<br>
-                {foreach $suggestions as $suggestion}
-                    {$suggestion}{if $iterator->last}...{else},{/if}
-                {/foreach}
-            </p>
-            <br>
-            <br>
+            {if isset($suggestions[0]) && $suggestions[0]}
+                <p class="lead text-center text-muted" style="line-height: 230%">
+                    Zkuste zadat například:<br>
+                    {foreach $suggestions as $suggestion}
+                        {$suggestion}{if $iterator->last}...{else},{/if}
+                    {/foreach}
+                </p>
+                <br>
+                <br>
+            {/if}
         </div>
     </div>
     <br>

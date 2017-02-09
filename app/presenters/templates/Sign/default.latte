@@ -13,7 +13,9 @@
 {block content}
 <div class="jumbotron">
     <h1>Přihlášení</h1>
-    <p class="lead">Zde se můžete přihlásit do aplikace Apisearch.</p>
+    <p>
+        Pokud zde ještě nemáte účet, <a href="{link Register:}">vytvořte si jej</a>.
+    </p>
     <br>
     {form signForm class => "form-horizontal"}
         <div class="form-group" n:if="$form->hasErrors()">

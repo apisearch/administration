@@ -19,11 +19,12 @@
 {block content}
 <div id="docs" class="row" style="display: none">
     <div class="col-sm-12">
+        <h2 style="margin-top: 0px;">Hledaný výraz</h2>
         <p>Předpokládejme, že vyhledáváme výraz <code>apple iphone</code>.</p>
-        <br>
+        <h2>Request</h2>
         <p>Požadavek je nutné odeslat jako HTTP požadavek metodou GET na adresu:</p>
         <pre>{$searchEndpoint}</pre>
-        <br>
+        <h2>Response</h2>
         <p>Odpověď bude mít formát JSON:</p>
 <pre>{
   "products": [
@@ -39,18 +40,63 @@
     }
   ]
 }</pre>
-        <br>
+        <h2>Příklad implementace</h2>
+        <div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#php" aria-controls="home" role="tab" data-toggle="tab">PHP</a>
+                </li>
+                <li role="presentation">
+                    <a href="#js" aria-controls="profile" role="tab" data-toggle="tab">JavaScript</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="php">
+                    <br>
+<pre>&lt;?php
+$url = '{$searchEndpoint}';
+$json = file_get_contents($url);
+$decoded = json_decode($json);
+
+foreach ($decoded['products'] as $product) {
+  echo $product->name . "\n";
+}
+</pre>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="js">
+                    <br>
+<pre>&lt;script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+$.getJSON(
+  '{$searchEndpoint}',
+  function(data) {
+    $.each(data.products, function(index, product) {
+      console.log(product.name)
+    });
+  }
+);
+&lt;/script&gt;
+</pre>
+                </div>
+            </div>
+        </div>
+        <h2>Kompletní dokumentace API</h2>
         <p>
             <em>
                 Kompletní dokumentace API je dostupná na adrese
                 <a href="http://docs.apisearch.apiary.io/#reference/0/search/fulltext-search" target="_blank">docs.apisearch.apiary.io</a>.
             </em>
         </p>
-        <button class="btn btn-lg btn-default pull-right" onclick="toggleTabs('search');" style="margin-bottom: 30px">
-            Zpět
-        </button>
+        <br>
+        <div class="text-center">
+            <button class="btn btn-lg btn-default" onclick="toggleTabs('search');" style="margin-bottom: 30px">
+                Zpět na vyhledávání
+            </button>
+        </div>
     </div>
 </div>
+<style>h2 { margin-top: 30px }</style>
 
 <div id="settings" class="row" style="display: none">
     <div class="col-sm-10 col-sm-offset-1">

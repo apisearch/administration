@@ -12,7 +12,6 @@ class HomepagePresenter extends BasePresenter
     public function startup()
     {
         if (!$this->token) {
-            $this->flashMessage('Nejste přihlášeni!', 'danger');
             $this->redirect('Sign:');
         }
 
@@ -29,10 +28,30 @@ class HomepagePresenter extends BasePresenter
         parent::startup();
     }
 
-    public function renderDefault()
+    public function renderDefault($newUser = '')
     {
         $this->template->searchEndpoint = $this->api->getSearchEndpoint($this->userId, 'apple iphone');
 
+        try {
+            $suggestions = $this->api->suggestTerms($this->userId)['terms'];
+
+            if (!isset($suggestions[0]) || !$suggestions[0]) {
+                $this->template->refreshSugg = true;
+            }
+
+            $this->template->suggestions = $suggestions;
+        } catch (\Exception $e) {
+            $this->template->suggestions = [];
+            $this->template->refreshSugg = true;
+        }
+
+        if ($newUser) {
+            $this->template->newUser = true;
+        }
+    }
+
+    public function renderSuggest()
+    {
         try {
             $this->template->suggestions = $this->api->suggestTerms($this->userId)['terms'];
         } catch (\Exception $e) {

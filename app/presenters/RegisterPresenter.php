@@ -42,6 +42,6 @@ class RegisterPresenter extends BasePresenter
             $this->redirect('this');
         }
 
-        $this->redirect('Homepage:', ['token' => $token]);
+        $this->redirect('Homepage:', ['token' => $token, 'newUser' => 'true']);
     }
 }

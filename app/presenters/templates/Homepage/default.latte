@@ -107,16 +107,17 @@
             <p class="lead text-center" style="font-size: 180%">Zde si můžete vyzkoušet vyhledávání.</p>
             <br>
             <br>
-            {if isset($suggestions[0]) && $suggestions[0]}
-                <p class="lead text-center text-muted" style="line-height: 230%">
-                    Zkuste zadat například:<br>
-                    {foreach $suggestions as $suggestion}
-                        {$suggestion}{if $iterator->last}...{else},{/if}
-                    {/foreach}
-                </p>
-                <br>
-                <br>
-            {/if}
+            <div id="suggestions">
+                {if isset($newUser) && $newUser && isset($refreshSugg)}
+                    <p class="lead text-center text-muted" style="line-height: 230%">
+                        Právě probíhá import produktů.
+                    </p>
+                    <br>
+                    <br>
+                {else}
+                    {include suggest.latte}
+                {/if}
+            </div>
         </div>
     </div>
     <br>
@@ -147,10 +148,24 @@
                 $('.alert-success').fadeOut(1000);
             }, 5000);
 
+            {ifset $refreshSugg}
+            setTimeout(function(){
+                $.ajax({
+                    type: "GET",
+                    url: {link Homepage:suggest},
+                    success: function(data) {
+                        $('#suggestions').hide();
+                        $('#suggestions').html(data);
+                        $('#suggestions').fadeIn(1000);
+                    }
+                });
+            }, 7000);
+            {/ifset}
+
             $('#query').on('keyup', function() {
                 var q = $('#query').val();
                 if (q === '') {
-                    $('try-search').show();
+                    $('#try-search').show();
                     $('#products').hide();
                 } else {
                     $.ajax({
@@ -158,7 +173,7 @@
                         url: {link Homepage:search},
                         data: "query=" + q,
                         success: function(data) {
-                            $('try-search').hide();
+                            $('#try-search').hide();
                             $('#products').show().html(data);
                         }
                     });

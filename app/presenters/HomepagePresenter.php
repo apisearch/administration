@@ -32,6 +32,7 @@ class HomepagePresenter extends BasePresenter
     public function renderDefault()
     {
         $this->template->searchEndpoint = $this->api->getSearchEndpoint($this->userId, 'hledany vyraz');
+        $this->template->suggestions = $this->api->suggestTerms($this->userId)['terms'];
     }
 
     public function renderSearch($query = '')

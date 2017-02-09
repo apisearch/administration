@@ -99,6 +99,19 @@ class ApiConnector extends Object
         return $this->decodeResponse($response);
     }
 
+    public function suggestTerms(string $userId): array
+    {
+        $response = null;
+
+        try {
+            $response = $this->client->get($this->endpoint . '/api/v1/search-suggestions/' . $userId);
+        } catch (BadResponseException $e) {
+            $this->processBadResponse($e);
+        }
+
+        return $this->decodeResponse($response);
+    }
+
     private function processBadResponse(BadResponseException $e)
     {
         $responseBody = \GuzzleHttp\json_decode($e->getResponse()->getBody(), true);

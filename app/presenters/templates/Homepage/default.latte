@@ -95,9 +95,21 @@
     </div>
     <div class="row">
         <div id="products">
+        </div>
+        <div id="try-search">
             <br>
             <br>
-            <p class="lead text-center">Vyzkoušejte si vyhledávání.</p>
+            <br>
+            <p class="lead text-center" style="font-size: 180%">Zde si můžete vyzkoušet vyhledávání.</p>
+            <br>
+            <br>
+            <p class="lead text-center text-muted" style="line-height: 230%">
+                Zkuste zadat například:<br>
+                {foreach $suggestions as $suggestion}
+                    {$suggestion}{if $iterator->last}...{else},{/if}
+                {/foreach}
+            </p>
+            <br>
             <br>
         </div>
     </div>
@@ -130,14 +142,21 @@
             }, 5000);
 
             $('#query').on('keyup', function() {
-                $.ajax({
-                    type: "GET",
-                    url: {link Homepage:search},
-                    data: "query=" + $('#query').val(),
-                    success: function(data) {
-                        $('#products').html(data);
-                    }
-                });
+                var q = $('#query').val();
+                if (q === '') {
+                    $('try-search').show();
+                    $('#products').hide();
+                } else {
+                    $.ajax({
+                        type: "GET",
+                        url: {link Homepage:search},
+                        data: "query=" + q,
+                        success: function(data) {
+                            $('try-search').hide();
+                            $('#products').show().html(data);
+                        }
+                    });
+                }
             });
         });
     </script>
